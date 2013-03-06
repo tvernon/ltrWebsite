@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lynchburg Trail Runners Club: <%= title %></title>
+  <link rel="icon" 
+      href="favicon.png">
+  <link href="/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+  <style type="text/css">
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+  </style>
+  <link href="/css/default.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/scripts/rwScripts.js"></script>
+  <script type="text/javascript" src="/scripts/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+</head>
+<body onload="selectActive()">
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">Lynchburg Trail Runners Club</a>
+      <ul class="nav">
+        <li>
+          <a id="homeTab" href="/">Home</a>
+        </li>
+        <li>
+          <a id="aboutTab" href="/about">About</a>
+        </li>
+        <li>
+          <a id="eventsTab" href="/events">Events</a>
+        </li>
+        <li>
+          <a id="photosTab" href="/photos">Photos</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <%- body %>
+</div>  
+</body>
+</html>
