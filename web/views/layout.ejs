@@ -2,9 +2,11 @@
 <html>
 <head>
   <title>Lynchburg Trail Runners Club: <%= title %></title>
-  <link rel="icon" 
-      href="favicon.png">
+  <link rel="icon"
+        href="favicon.png">
   <link href="/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+  <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
   <style type="text/css">
     body {
       padding-top: 60px;
@@ -17,38 +19,49 @@
   <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 </head>
 <body onload="selectActive()">
+
+
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
       <a class="brand" href="/" style="padding-left:30px;">Lynchburg Trail Runners Club</a>
-      <ul class="nav">
-        <li>
-          <a id="homeTab" href="/">Home</a>
-        </li>
-        <li>
-          <a id="aboutTab" href="/about">About</a>
-        </li>
-        <li>
-          <a id="eventsTab" href="/events">Event Calendar</a>
-        </li>
-        <li>
-          <a id="galleryTab" href="/gallery">Gallery</a>
-        </li>
-        <li>
-          <a id="runningLogTab" href="/runningLog">Running Log</a>
-        </li>
-        <li>
-          <a id="membersTab" href="/members">Members</a>
-        </li>
-        <li>
-          <a id="linkTab" href="/links">Links</a>
-        </li>
-      </ul>
+
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li>
+            <a id="homeTab" href="/">Home</a>
+          </li>
+          <li>
+            <a id="aboutTab" href="/about">About</a>
+          </li>
+          <li>
+            <a id="eventsTab" href="/events">Event Calendar</a>
+          </li>
+          <li>
+            <a id="galleryTab" href="/gallery">Gallery</a>
+          </li>
+          <li>
+            <a id="runningLogTab" href="/runningLog">Running Log</a>
+          </li>
+          <li>
+            <a id="membersTab" href="/members">Members</a>
+          </li>
+          <li>
+            <a id="linkTab" href="/links">Links</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
 <div class="container">
   <%- body %>
-</div>  
+</div>
 </body>
 </html>
