@@ -5,5 +5,9 @@ function selectActive () {
     activeTab = "homeTab";
   }
   $("#" + activeTab).parent().addClass("active");
-  console.log(activeTab);
+}
+
+function loginPressed () {
+  //Show login modal.
+  $("#loginModal").show();
 }

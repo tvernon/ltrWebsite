@@ -27,7 +27,7 @@
 
       <a class="brand" href="/" style="padding-left:30px;font-size: 12pt;">Lynchburg Trail Runners Club</a>
 
-      <div class="nav-collapse collapse">
+      <div id="pages" class="nav-collapse collapse">
         <ul class="nav">
           <li>
             <a id="homeTab" href="/">Home</a>
@@ -48,9 +48,13 @@
             <a id="membersTab" href="/members">Members</a>
           </li>
           <li>
-            <a id="linkTab" href="/links">Links</a>
+            <a id="linksTab" href="/links">Links</a>
+          </li>
+          <li class="hidden-desktop">
+            <a id="loginTab" href="/login">Login/Join</a>
           </li>
         </ul>
+        <a id="loginButton" class="btn btn-primary pull-right visible-desktop" href="/login">Login/Join</a>
       </div>
     </div>
   </div>
@@ -58,5 +62,6 @@
 <div class="container">
   <%- body %>
 </div>
+<% include modals/loginModal %>
 </body>
 </html>
