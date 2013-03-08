@@ -1,3 +1,22 @@
 <% layout('../layout') -%>
 <h1>Login</h1>
-<p>This should be a standard Log in page<br> Should also have the option of signing up as well.</p>
+<div class="indent">
+  <form id="mobileLogin" action="/login" method="POST">
+    <label>
+      Username:
+    </label>
+    <input name="email" id="email" type="text" placeholder="Email">
+    <label>
+      Password:
+    </label>
+    <input name="password" id="password" type="password" placeholder="Password">
+    <br>
+    <button type="submit" class="btn">Sign in</button>
+    <input type="checkbox"> Remember me
+    <div class="alert hidden">
+      <a class="close" data-dismiss="alert">×</a>
+      Incorrect Password. Please try again.
+    </div>
+
+  </form>
+</div>
