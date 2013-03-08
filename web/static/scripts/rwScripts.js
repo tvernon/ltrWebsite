@@ -11,7 +11,3 @@ function loginPressed () {
   //Show login modal.
   $("#loginModal").show();
 }
-
-function comeOn () {
-  console.log("HELLO");
-}

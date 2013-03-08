@@ -1,7 +1,17 @@
 <% layout('../layout') -%>
 <h1>Login</h1>
+<div id="incorrectPassword" class="alert hidden">
+  <a class="close" data-dismiss="alert">×</a>
+  Incorrect Password. Please try again.
+</div>
+
+<div id="userNotFound" class="alert hidden">
+  <a class="close" data-dismiss="alert">×</a>
+  User not found. Please try again.
+</div>
+
 <div class="indent">
-  <form id="mobileLogin" action="/login" method="POST">
+  <form id="mobileLogin" action="/login" method="POST" onsubmit="return checkForm()">
     <label>
       Username:
     </label>
@@ -13,10 +23,7 @@
     <br>
     <button type="submit" class="btn">Sign in</button>
     <input type="checkbox"> Remember me
-    <div class="alert hidden">
-      <a class="close" data-dismiss="alert">×</a>
-      Incorrect Password. Please try again.
-    </div>
-
   </form>
+
+  Not a member? <a href="/join">Join us!</a>
 </div>

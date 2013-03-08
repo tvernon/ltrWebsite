@@ -1,0 +1,93 @@
+<% layout('../layout') -%>
+<script type="text/javascript" src="/scripts/joinScript.js"></script>
+
+<h1>Sign up</h1>
+<div id="incorrectPassword" class="alert hidden">
+  <a class="close" data-dismiss="alert">×</a>
+  Incorrect Password. Please try again.
+</div>
+
+<div id="userNotFound" class="alert hidden">
+  <a class="close" data-dismiss="alert">×</a>
+  Username already taken. Please choose another.
+</div>
+
+
+<div class="indent">
+  <form id="joinForm" class="form-horizontal" action="/join" method="POST" onSubmit="return checkForm()">
+    <div class="control-group">
+      <label class="control-label" for="username">
+        Username:
+      </label>
+
+      <div class="controls">
+        <input name="username" id="username" type="text" placeholder="Username">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="firstName">
+        First Name:
+      </label>
+
+      <div class="controls">
+        <input name="firstName" id="firstName" type="text" placeholder="First Name">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="lastName">
+        Last Name:
+      </label>
+
+      <div class="controls">
+        <input name="lastName" id="lastName" type="text" placeholder="Last Name">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="gender">
+        Gender:
+      </label>
+
+      <div class="controls">
+        <div onsubmit="checkRadios()" class="btn-group" data-toggle="buttons-radio">
+          <button id="male" type="button" class="btn">Male</button>
+          <button id="female" type="button" class="btn">Female</button>
+        </div>
+        <input type="text" id="gender" name="gender" class="hidden" placeholder="Gender">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="email">
+        Email:
+      </label>
+
+      <div class="controls">
+        <input name="email" id="email" type="text" placeholder="Email Address">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="password">
+        Password:
+      </label>
+
+      <div class="controls">
+        <input name="password" id="password" type="password" placeholder="Password">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="password2">
+        Re-enter password:
+      </label>
+
+      <div class="controls">
+        <input name="password2" id="password2" type="password" placeholder="Password">
+      </div>
+    </div>
+    <br>
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Sign up</button>
+        <input type="checkbox"> Remember me
+      </div>
+  </form>
+</div>
