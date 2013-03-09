@@ -2,7 +2,7 @@
 window.onload = function () {
   $("#male").click(toggle);
   $("#female").click(toggle);
-}
+};
 
 
 function checkForm () {

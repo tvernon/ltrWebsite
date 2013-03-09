@@ -12,7 +12,7 @@
   <script type="text/javascript" src="/scripts/jquery-1.9.1.js"></script>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 </head>
-<body onload="selectActive()">
+<body onload="setup()">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -54,7 +54,8 @@
             <a id="loginTab" href="/login">Login/Join</a>
           </li>
           <% if(session && session.user) { %>
-          <li class="visible-desktop"><a id="profileTab" href="/profile"><%=session.user.username%></a></li>
+          <li class="visible-desktop"><a id="profileTab" href="/profile/<%=session.user.username%>"><%=session.user.username%></a>
+          </li>
           <li class="visible-desktop">
             <div><a id="logoutButton" class="btn btn-primary visible-desktop" href="/logout">Logout</a></div>
           </li>

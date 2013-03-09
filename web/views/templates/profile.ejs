@@ -1,0 +1,7 @@
+<% layout('../layout') -%>
+<script type="text/javascript" src="/scripts/profileScript.js"></script>
+<% var user = userLookup || session.user%>
+<h3><%= user.firstName%> <%= user.lastName %></h3>
+<h4><%= user.username%></h4>
+<h5>Email: <%= user.email%></h5>
+<h5>Gender: <%= user.gender%></h5>
