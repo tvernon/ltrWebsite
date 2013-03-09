@@ -53,8 +53,18 @@
           <li class="hidden-desktop">
             <a id="loginTab" href="/login">Login/Join</a>
           </li>
+          <% if(session && session.user) { %>
+          <li class="visible-desktop"><a id="profileTab" href="/profile"><%=session.user.username%></a></li>
+          <li class="visible-desktop">
+            <div><a id="logoutButton" class="btn btn-primary visible-desktop" href="/logout">Logout</a></div>
+          </li>
+
+          <% } else { %>
+          <li class="visible-desktop">
+            <div><a id="loginButton" class="btn btn-primary visible-desktop" href="/login">Login/Join</a></div>
+          </li>
+          <% }%>
         </ul>
-        <a id="loginButton" class="btn btn-primary pull-right visible-desktop" href="/login">Login/Join</a>
       </div>
     </div>
   </div>
