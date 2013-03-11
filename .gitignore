@@ -2,3 +2,4 @@ node_modules/
 redis.conf
 dump.rdb
 Procfile
+.idea/
