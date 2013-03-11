@@ -41,3 +41,9 @@ function toggle () {
   $('#gender').val(this.id);
   console.log($('#gender').val())
 }
+
+function hashPassword (password, callback) {
+  var md5 = crypto.createHash('md5');
+  md5.update(password);
+  callback(md5.digest('hex'));
+}
