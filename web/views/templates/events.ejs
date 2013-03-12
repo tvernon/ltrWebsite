@@ -1,13 +1,13 @@
 <% layout('../layout') -%>
 
 <h3>Upcoming Events:</h3>
-<% if (events) { %>
+<% if (events.length > 0) { %>
 <%events.forEach(function(event) {%>
 <h4><%=event.name%></h4>
 <%});%>
 <h2>WE HAVE EVENTS!!!!</h2>
 <%}%>
-<!--<a class="btn btn-primary" href="/events/create">Create Event</a>-->
+<a class="btn btn-primary" href="/events/create">Create Event</a>
 <!--<div>-->
 <!--<div class="weekLine">-->
 <!--<span class="weekTitle">-->

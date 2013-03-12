@@ -1,0 +1,111 @@
+<% layout('../layout') -%>
+
+<link href="/css/bootstrap-combobox.css" rel="stylesheet">
+<link href="/css/bootstrap-timepicker.css" rel="stylesheet">
+<link href="/css/bootstrap-datepicker.css" rel="stylesheet">
+<script type="text/javascript" src="/scripts/bootstrap-combobox.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-datepicker.js"></script>
+
+<h1>Create Event</h1>
+
+<div class="indent">
+  <form id="createEventForm" class="form-horizontal" action="/create/event" method="POST" onSubmit="return checkForm()">
+
+    <div class="control-group">
+      <label class="control-label" for="eventName">
+        Event Name:
+      </label>
+
+      <div class="controls">
+        <input name="eventName" id="eventName" type="text" placeholder="Event Name">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="eventType">
+        Event Type:
+      </label>
+
+      <div class="controls">
+        <div class="combobox-container">
+          <select class="combobox input-large" name="eventType" id="eventType" style="display:none">
+            <option value>Choose an Event Type</option>
+            <option value="Trail Run">Trail Run</option>
+            <option value="Race">Race</option>
+            <option value="Fun Run">Fun Run</option>
+          </select>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $('#eventType').combobox();
+        });
+      </script>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="eventDate">
+        Event Date:
+      </label>
+
+      <div class="controls">
+        <input type="text" id="eventDate" name="eventDate" placeholder="Click to enter date">
+        <script type="text/javascript">
+          $('#eventDate').datepicker({
+            format: 'mm-dd-yyyy'
+          });
+        </script>
+
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="eventTime">
+        Event Time:
+      </label>
+
+      <div class="controls">
+        <div class="input-append bootstrap-timepicker">
+          <input id="eventTime" name="eventTime" type="text" class="input-small">
+          <span class="add-on"><i class="icon-time"></i></span>
+        </div>
+
+        <script type="text/javascript">
+          $('#eventTime').timepicker();
+        </script>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="location">
+        Location:
+      </label>
+
+      <div class="controls">
+        <div class="combobox-container">
+          <select class="combobox input-large" name="location" id="location" style="display:none">
+            <option value>Enter or choose location</option>
+            <option value="Terrapin">Terrapin</option>
+            <option value="Liberty">Liberty</option>
+            <option value="Blackwater Creek">Blackwater Creek</option>
+            <option value="Lynchburg">Lynchburg</option>
+          </select>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $('#location').combobox();
+        });
+      </script>
+    </div>
+
+    <br>
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
