@@ -1,5 +1,5 @@
 /* =============================================================
- * bootstrap-combobox.js v1.1.0
+ * bootstrap-combobox.js v0.9.6
  * =============================================================
  * Copyright 2012 Daniel Farrell
  *
@@ -22,19 +22,19 @@
 
   var Combobox = function (element, options) {
     this.options = $.extend({}, $.fn.combobox.defaults, options)
-    this.$source = $(element)
-    this.$container = this.setup()
-    this.$element = this.$container.find('input[type=text]')
-    this.$target = this.$container.find('input[type=hidden]')
+    this.$container = this.setup(element)
+    this.$element = this.$container.find('input')
     this.$button = this.$container.find('.dropdown-toggle')
-    this.$menu = $(this.options.menu).appendTo('body')
+    this.$target = this.$container.find('select')
     this.matcher = this.options.matcher || this.matcher
     this.sorter = this.options.sorter || this.sorter
     this.highlighter = this.options.highlighter || this.highlighter
+    this.$menu = $(this.options.menu).appendTo('body')
+    this.placeholder = this.options.placeholder || this.$target.attr('data-placeholder')
+    this.$element.attr('placeholder', this.placeholder)
     this.shown = false
     this.selected = false
     this.refresh()
-    this.transferAttributes()
     this.listen()
   }
 
@@ -43,22 +43,21 @@
 
   Combobox.prototype = $.extend({}, $.fn.typeahead.Constructor.prototype, {
 
-    constructor: Combobox, setup: function () {
-      var combobox = $(this.options.template)
-      this.$source.before(combobox)
-      this.$source.hide()
+    constructor: Combobox, setup: function (element) {
+      var select = $(element)
+        , combobox = $(this.options.template)
+      select.before(combobox)
+      select.detach()
+      combobox.append(select)
+      combobox.find('input[type=text]').attr('name', combobox.find('select').attr('name')) // Name the text field to allow for custom-entered choices
+      combobox.find('select').removeAttr('name') // Remove the name from the previous select
       return combobox
     }, parse: function () {
-      var that = this
-        , map = {}
+      var map = {}
         , source = []
         , selected = false
-      this.$source.find('option').each(function () {
+      this.$target.find('option').each(function () {
         var option = $(this)
-        if (option.val() == '') {
-          that.options.placeholder = option.text()
-          return
-        }
         map[option.text()] = option.val()
         source.push(option.text())
         if (option.attr('selected')) selected = option.html()
@@ -70,36 +69,22 @@
         this.selected = true
       }
       return source
-    }, transferAttributes: function () {
-      this.options.placeholder = this.$source.attr('data-placeholder') || this.options.placeholder
-      this.$element.attr('placeholder', this.options.placeholder)
-      this.$target.prop('name', this.$source.prop('name'))
-      this.$element.attr('required', this.$source.attr('required'))
-      this.$element.attr('rel', this.$source.attr('rel'))
-      this.$element.attr('title', this.$source.attr('title'))
-      this.$element.attr('class', this.$source.attr('class'))
     }, toggle: function () {
       if (this.$container.hasClass('combobox-selected')) {
         this.clearTarget()
-        this.triggerChange()
-        this.clearElement()
+        this.$element.val('').focus()
       } else {
         if (this.shown) {
           this.hide()
         } else {
-          this.clearElement()
           this.lookup()
         }
       }
-    }, clearElement: function () {
-      this.$element.val('').focus()
     }, clearTarget: function () {
-      this.$source.val('')
       this.$target.val('')
       this.$container.removeClass('combobox-selected')
       this.selected = false
-    }, triggerChange: function () {
-      this.$source.trigger('change')
+      this.$target.trigger('change')
     }, refresh: function () {
       this.source = this.parse()
       this.options.items = this.source.length
@@ -108,36 +93,43 @@
     // modified typeahead function adding container and target handling
     , select: function () {
       var val = this.$menu.find('.active').attr('data-value')
-      this.$element.val(this.updater(val)).trigger('change')
-      this.$source.val(this.map[val]).trigger('change')
-      this.$target.val(this.map[val]).trigger('change')
+      this.$element.val(val)
       this.$container.addClass('combobox-selected')
       this.selected = true
       return this.hide()
     }
 
-    // modified typeahead function removing the blank handling and source function handling
+    // modified typeahead function removing the blank handling
     , lookup: function (event) {
+      var that = this
+        , items
+        , q
+
       this.query = this.$element.val()
-      return this.process(this.source)
+
+      items = $.grep(this.source, function (item) {
+        if (that.matcher(item)) return item
+      })
+
+      items = this.sorter(items)
+
+      if (!items.length) {
+        return this.shown ? this.hide() : this
+      }
+
+      return this.render(items.slice(0, this.options.items)).show()
     }
 
-    // modified typeahead function adding button handling and remove mouseleave
+    // modified typeahead function adding button handling
     , listen: function () {
       this.$element
-        .on('focus', $.proxy(this.focus, this))
         .on('blur', $.proxy(this.blur, this))
         .on('keypress', $.proxy(this.keypress, this))
         .on('keyup', $.proxy(this.keyup, this))
 
-      if (this.eventSupported('keydown')) {
-        this.$element.on('keydown', $.proxy(this.keydown, this))
-      }
-
       this.$menu
         .on('click', $.proxy(this.click, this))
         .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
-        .on('mouseleave', 'li', $.proxy(this.mouseleave, this))
 
       this.$button
         .on('click', $.proxy(this.toggle, this))
@@ -153,8 +145,6 @@
         case 36: // home
         case 35: // end
         case 16: // shift
-        case 17: // ctrl
-        case 18: // alt
           break
 
         case 9: // tab
@@ -177,24 +167,16 @@
       e.preventDefault()
     }
 
-    // modified typeahead function to force a match and add a delay on hide
+    // modified typeahead function to only hide menu if it is visible
     , blur: function (e) {
       var that = this
-      this.focused = false
-      var val = this.$element.val()
-      if (!this.selected && val != '') {
-        this.$element.val('')
-        this.$source.val('').trigger('change')
-        this.$target.val('').trigger('change')
+      e.stopPropagation()
+      e.preventDefault()
+      if (this.shown) {
+        setTimeout(function () {
+          that.hide()
+        }, 150)
       }
-      if (!this.mousedover && this.shown) setTimeout(function () {
-        that.hide()
-      }, 200)
-    }
-
-    // modified typeahead function to not hide
-    , mouseleave: function (e) {
-      this.mousedover = false
     }
   })
 
@@ -204,17 +186,17 @@
   $.fn.combobox = function (option) {
     return this.each(function () {
       var $this = $(this)
-        , data = $this.data('combobox')
+        , data
         , options = typeof option == 'object' && option
-      if (!data) $this.data('combobox', (data = new Combobox(this, options)))
+      $this.data('combobox', (data = new Combobox(this, options)))
       if (typeof option == 'string') data[option]()
     })
   }
 
   $.fn.combobox.defaults = {
-    template: '<div class="combobox-container"><input type="hidden" /><input type="text" autocomplete="off" /><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"/><span class="combobox-clear"><i class="icon-remove"/></span></span></div>', menu: '<ul class="typeahead typeahead-long dropdown-menu"></ul>', item: '<li><a href="#"></a></li>'
+    template: '<div class="combobox-container"><input type="text" /><span class="add-on btn dropdown-toggle" data-dropdown="dropdown"><span class="caret"/><span class="combobox-clear"><i class="icon-remove"/></span></span></div>', menu: '<ul class="typeahead typeahead-long dropdown-menu"></ul>', item: '<li><a href="#"></a></li>', placeholder: null
   }
 
   $.fn.combobox.Constructor = Combobox
 
-}(window.jQuery);
+}(window.jQuery)

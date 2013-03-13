@@ -11,7 +11,8 @@
 <h1>Create Event</h1>
 
 <div class="indent">
-  <form id="createEventForm" class="form-horizontal" action="/create/event" method="POST" onSubmit="return checkForm()">
+  <form id="createEventForm" class="form-horizontal" action="/events/create" method="POST"
+        onSubmit="return checkForm()">
 
     <div class="control-group">
       <label class="control-label" for="eventName">
@@ -30,11 +31,11 @@
 
       <div class="controls">
         <div class="combobox-container">
-          <select class="combobox input-large" name="eventType" id="eventType" style="display:none">
-            <option value>Choose an Event Type</option>
-            <option value="Trail Run">Trail Run</option>
-            <option value="Race">Race</option>
-            <option value="Fun Run">Fun Run</option>
+          <select class="combobox input-large" name="eventType" id="eventType"
+                  data-placeholder="Enter or select event type">
+            <option>Trail Run</option>
+            <option>Race</option>
+            <option>Fun Run</option>
           </select>
         </div>
       </div>
@@ -85,12 +86,11 @@
 
       <div class="controls">
         <div class="combobox-container">
-          <select class="combobox input-large" name="location" id="location" style="display:none">
-            <option value>Enter or choose location</option>
-            <option value="Terrapin">Terrapin</option>
-            <option value="Liberty">Liberty</option>
-            <option value="Blackwater Creek">Blackwater Creek</option>
-            <option value="Lynchburg">Lynchburg</option>
+          <select class="combobox" name="location" id="location" data-placeholder="Enter or select location">
+            <option>Terrapin</option>
+            <option>Liberty</option>
+            <option>Blackwater Creek</option>
+            <option>Lynchburg</option>
           </select>
         </div>
       </div>
