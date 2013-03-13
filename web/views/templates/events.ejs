@@ -1,79 +1,25 @@
 <% layout('../layout') -%>
-
 <h3>Upcoming Events:</h3>
-<% if (events.length > 0) { %>
-<%events.forEach(function(event) {%>
-<h4><%=event.name%></h4>
-<%});%>
-<h2>WE HAVE EVENTS!!!!</h2>
-<%}%>
-<a class="btn btn-primary" href="/events/create">Create Event</a>
-<!--<div>-->
-<!--<div class="weekLine">-->
-<!--<span class="weekTitle">-->
-<!--<strong>Week of March 3</strong>-->
-<!--</span>-->
-<!--</div>-->
-<!--<div class="container-fluid well well-small">-->
-
-<!--<div class="span4">-->
-<!--Monday the 4th<br>Run-->
-<!--</div>-->
-<!--<div class="span6">-->
-<!--<div class="span2">-->
-<!--TIME:<br>-->
-<!--PLACE:<br>-->
-<!--WHO:<br>-->
-<!--</div>-->
-<!--8:00<br>-->
-<!--Blackwater Creek<br>-->
-<!--Alexis Thomas, Todd Thomas, and 8 others<br>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="weekLine">-->
-<!--<span class="weekTitle">-->
-<!--<strong>Week of March 10</strong>-->
-<!--</span>-->
-<!--</div>-->
-<!--<p class="text-center">No runs scheduled for this week.</p>-->
-
-<!--<div class="weekLine">-->
-<!--<span class="weekTitle">-->
-<!--<strong>Week of March 17</strong>-->
-<!--</span>-->
-<!--</div>-->
-<!--<div class="container-fluid well well-small">-->
-
-<!--<div class="span4">-->
-<!--Monday the 18th<br>Run-->
-<!--</div>-->
-<!--<div class="span6">-->
-<!--<div class="span2">-->
-<!--TIME:<br>-->
-<!--PLACE:<br>-->
-<!--WHO:<br>-->
-<!--</div>-->
-<!--8:00<br>-->
-<!--Blackwater Creek<br>-->
-<!--Alexis Thomas, Todd Thomas, and 8 others<br>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="container-fluid well well-small">-->
-
-<!--<div class="span4">-->
-<!--Wednesday the 20th<br>Run-->
-<!--</div>-->
-<!--<div class="span6">-->
-<!--<div class="span2">-->
-<!--TIME:<br>-->
-<!--PLACE:<br>-->
-<!--WHO:<br>-->
-<!--</div>-->
-<!--8:00<br>-->
-<!--Blackwater Creek<br>-->
-<!--Alexis Thomas, Todd Thomas, and 8 others<br>-->
-<!--</div>-->
-<!--</div>-->
-<!--<h3>Past Events:</h3>-->
-<!--</div>-->
-<!--<p>Logged-in Members should have a way to add events</p>-->
+<div class="indent">
+  <% if (events.length > 0) { %>
+  <%events.forEach(function(event) {%>
+  <div class="container-fluid well well-small">
+    <div class="span4">
+      <%=event.eventName%>
+      <br>
+      <%=event.eventType%>
+    </div>
+    <div class="span6">
+      <div class="span4">
+        Date: <%=event.eventDate%><br>
+        Time: <%=event.eventTime%><br>
+        Location: <%=event.location%><br>
+        Attending: <%=event.attendees%><br>
+      </div>
+    </div>
+  </div>
+  <%});%>
+  <h2>WE HAVE EVENTS!!!!</h2>
+  <%}%>
+  <a class="btn btn-primary" href="/events/create">Create Event</a>
+</div>

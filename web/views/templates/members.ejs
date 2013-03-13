@@ -1,3 +1,31 @@
 <% layout('../layout') -%>
 <h1>Who We Are:</h1>
-<p>Display the members here in some interesting way</p>
+<div class="indent">
+  <% if (profiles.length > 0) { %>
+  <%profiles.forEach(function(profile) {%>
+  <div class="container-fluid well well-small">
+    <div class="span4">
+      <%=profile.firstName%>
+      <%=profile.lastName%>
+      <br>
+      <br>
+
+      Photo?
+      <br>
+
+      <br>
+      <%=profile.username%>
+    </div>
+    <div class="span6">
+      <div class="span4">
+        Email: <%=profile.email%><br>
+        Gender: <%=profile.gender%><br>
+        Member Since: THE BEGINNING
+        <!--Location: <%=profile.location%><br>-->
+        <!--Attending: <%=profile.attendees%><br>-->
+      </div>
+    </div>
+  </div>
+  <%});%>
+  <%}%>
+</div>
